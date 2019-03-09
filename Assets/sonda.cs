@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class sonda : MonoBehaviour
 {
 
-    public float blad;
-    public float odleglosc; // odległość między dwoma obiektami (dno i sonda)
-    public int odlegloscAux; // odległość między dwoma obiektami (dno i sonda), wyrażona w int
-    public float czas = 0.0f; // aktualny czas od ostatniego odświeżenia
-    public Text glebokosc; // zmienna dla informacji o glebokosci
+    public float blad;          // blad transformacji Boxa-Mullera
+    public float odleglosc;     // odległość między dwoma obiektami (dno i sonda)
+    public int odlegloscAux;    // odległość między dwoma obiektami (dno i sonda), wyrażona w int
+    public float czas = 0.0f;   // aktualny czas od ostatniego odświeżenia
+    public Text glebokosc;      // zmienna dla informacji o glebokosci
     static System.Random rand = new System.Random();
 
     double u1;
@@ -38,8 +38,8 @@ public class sonda : MonoBehaviour
             if (Physics.Raycast(echoRay, out detekcja)) // petla wykrywająca dno
             {
                 blad = (float)z1;
-                odleglosc = detekcja.distance + blad; //dystans do obiektu który odbija falę + konwersja float to int
-                glebokosc.text = odleglosc.ToString() + "m (+/- 0.3m)"; ; // konwersja int to string
+                odleglosc = detekcja.distance + blad; //dystans do obiektu który odbija falę
+                glebokosc.text = odleglosc.ToString("0.00") + "m (+/- 0.3m)"; ; // konwersja float to string
              
             }
             czas = 0; // zerowanie czasu po wykonaniu petli
