@@ -27,17 +27,49 @@ public class sterowanie : MonoBehaviour
     public float ROT = 0.0f;
     public float COG = 0.0f;
     public float K = 0.07f;
-    public string test = "test";
 
-    void Start()
+    public GameObject ArduinoConnector;
+    public GameObject Kamera;
+
+    private float CamX;
+    private float CamY;
+    private Vector3 targetRotation;
+    private Vector3 rotateValue;
+    private Quaternion rotation;
+
+    public void  Start()
     {
-        gameObject.GetComponent<ArduinoConnector>().WriteToArduino(test);
+        rotation = transform.rotation;
     }
 
 
     void Update()
     {
         
+
+
+        var arduino = ArduinoConnector.GetComponent<ArduinoConnector>();
+
+        string value = arduino.ReadFromArduino(1); //Read the information
+        if (arduino.ReadFromArduino(1) != " " || arduino.ReadFromArduino(1) != null)
+        {
+            string[] vec3 = value.Split(','); //My arduino script returns a 3 part value (IE: 12,30,18)
+
+
+            if (vec3[0] != "" && vec3[1] != "" && vec3[2] != "" && vec3[3] != "") //Check if all values are recieved
+            {
+                predkoscNastawa.value = float.Parse(vec3[2]);
+                pletwaNastawa.value = float.Parse(vec3[3]);
+            }
+            CamX = 19 + float.Parse(vec3[0]);
+            CamY = 90 + float.Parse(vec3[1]);
+            Kamera.transform.rotation = Quaternion.Euler(CamX, CamY+COG, 0);
+        }
+
+
+        
+
+
         predkosc.text = predkoscNastawa.value.ToString() + " %";
         pletwa.text = pletwaNastawa.value.ToString() + " °";
         
@@ -66,7 +98,7 @@ public class sterowanie : MonoBehaviour
             }
         }
 
-
+        arduino.WriteToArduino(predkoscAktHUD.text);
     }
 }
 

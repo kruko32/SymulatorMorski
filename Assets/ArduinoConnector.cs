@@ -5,31 +5,38 @@ using System.IO.Ports;
 
 public class ArduinoConnector : MonoBehaviour {
 
-    /* The serial port where the Arduino is connected. */
-    [Tooltip("The serial port where the Arduino is connected")]
-    public string port = "COM4";
-    /* The baudrate of the serial port. */
-    [Tooltip("The baudrate of the serial port")]
+    public string port = "COM3";
     public int baudrate = 9600;
 
     private SerialPort stream;
 
+    void Start()
+    {
+        Open();
+
+
+    }
+
+
+    void Update()
+    {
+
+    }
+
+
     public void Open () {
-        // Opens the serial port
         stream = new SerialPort(port, baudrate);
         stream.ReadTimeout = 50;
         stream.Open();
-        //this.stream.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
     }
 
     public void WriteToArduino(string message)
     {
-        // Send the request
         stream.WriteLine(message);
         stream.BaseStream.Flush();
     }
 
-    public string ReadFromArduino(int timeout = 0)
+    public string ReadFromArduino(int timeout = 1)
     {
         stream.ReadTimeout = timeout;
         try
@@ -84,4 +91,6 @@ public class ArduinoConnector : MonoBehaviour {
     {
         stream.Close();
     }
+
+
 }
