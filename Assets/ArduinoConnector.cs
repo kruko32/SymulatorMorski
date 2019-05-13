@@ -10,7 +10,7 @@ public class ArduinoConnector : MonoBehaviour {
 
     private SerialPort stream;
 
-    void Start()
+    void Awake()
     {
         Open();
 
@@ -49,6 +49,16 @@ public class ArduinoConnector : MonoBehaviour {
         }
     }
     
+
+    public IEnumerator example()
+    {
+        while (true)
+        {
+            ReadFromArduino();
+            yield return null;
+        }
+
+    }
 
     public IEnumerator AsynchronousReadFromArduino(Action<string> callback, Action fail = null, float timeout = float.PositiveInfinity)
     {

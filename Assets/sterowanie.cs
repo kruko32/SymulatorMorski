@@ -37,9 +37,13 @@ public class sterowanie : MonoBehaviour
     private Vector3 rotateValue;
     private Quaternion rotation;
 
+    ArduinoConnector arduino;
+
     public void  Start()
     {
         rotation = transform.rotation;
+        arduino = ArduinoConnector.GetComponent<ArduinoConnector>();
+        StartCoroutine(arduino.example());
     }
 
 
@@ -48,7 +52,6 @@ public class sterowanie : MonoBehaviour
         
 
 
-        var arduino = ArduinoConnector.GetComponent<ArduinoConnector>();
 
         string value = arduino.ReadFromArduino(1); //Read the information
         if (arduino.ReadFromArduino(1) != " " || arduino.ReadFromArduino(1) != null)
