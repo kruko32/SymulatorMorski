@@ -2412,7 +2412,6 @@ GameObject:
   - component: {fileID: 913081417}
   - component: {fileID: 913081416}
   - component: {fileID: 913081415}
-  - component: {fileID: 913081421}
   - component: {fileID: 913081419}
   - component: {fileID: 913081420}
   m_Layer: 0
@@ -2529,6 +2528,7 @@ MonoBehaviour:
   K: 0.07
   ArduinoConnector: {fileID: 1352874218}
   Kamera: {fileID: 282840810}
+  vec3: []
 --- !u!114 &913081420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2541,19 +2541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b770de2617e3c4bb26ac99ca3c46df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &913081421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913081414}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcc7b3f5d5df1740a278edb12d7c8ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ArduinoConnector: {fileID: 1352874218}
 --- !u!1 &969357325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3675,7 +3662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: COM3
-  baudrate: 9600
+  baudrate: 9200
 --- !u!4 &1352874220
 Transform:
   m_ObjectHideFlags: 0
@@ -3779,6 +3766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1425169276}
   - component: {fileID: 1425169275}
+  - component: {fileID: 1425169277}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -3817,6 +3805,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425169277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425169274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc00ab4e68dd694392202ea31c11370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1431710152
 GameObject:
   m_ObjectHideFlags: 0
@@ -5781,6 +5781,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2500

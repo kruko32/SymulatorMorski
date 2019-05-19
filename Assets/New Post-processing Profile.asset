@@ -37,13 +37,13 @@ MonoBehaviour:
     value: 10
   aperture:
     overrideState: 1
-    value: 2.5
+    value: 1
   focalLength:
     overrideState: 1
-    value: 32
+    value: 33
   kernelSize:
     overrideState: 1
-    value: 0
+    value: 1
 --- !u!114 &114558322940829796
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -65,7 +65,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.47
+    value: 0.32
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -83,7 +83,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1
+    value: 5.8
   directLightingStrength:
     overrideState: 1
     value: 0
