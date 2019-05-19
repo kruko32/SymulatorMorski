@@ -3,30 +3,21 @@ using System;
 using System.Collections;
 using System.IO.Ports;
 
-public class ArduinoConnector : MonoBehaviour {
-
+public class ArduinoConnector : MonoBehaviour
+{
     public string port = "COM3";
-    public int baudrate = 9600;
-
+    public int baudrate = 9200;
     private SerialPort stream;
 
     void Awake()
     {
         Open();
-
-
     }
 
-
-    void Update()
+    public void Open()
     {
-
-    }
-
-
-    public void Open () {
         stream = new SerialPort(port, baudrate);
-        stream.ReadTimeout = 50;
+        stream.ReadTimeout = 10;
         stream.Open();
     }
 
@@ -36,7 +27,7 @@ public class ArduinoConnector : MonoBehaviour {
         stream.BaseStream.Flush();
     }
 
-    public string ReadFromArduino(int timeout = 1)
+    public string ReadFromArduino(int timeout = 10)
     {
         stream.ReadTimeout = timeout;
         try
@@ -48,59 +39,4 @@ public class ArduinoConnector : MonoBehaviour {
             return null;
         }
     }
-    
-
-    public IEnumerator example()
-    {
-        while (true)
-        {
-            ReadFromArduino();
-            yield return null;
-        }
-
-    }
-
-    public IEnumerator AsynchronousReadFromArduino(Action<string> callback, Action fail = null, float timeout = float.PositiveInfinity)
-    {
-        DateTime initialTime = DateTime.Now;
-        DateTime nowTime;
-        TimeSpan diff = default(TimeSpan);
-
-        string dataString = null;
-
-        do
-        {
-            // A single read attempt
-            try
-            {
-                dataString = stream.ReadLine();
-            }
-            catch (TimeoutException)
-            {
-                dataString = null;
-            }
-
-            if (dataString != null)
-            {
-                callback(dataString);
-                yield return null;
-            } else
-                yield return new WaitForSeconds(0.05f);
-
-            nowTime = DateTime.Now;
-            diff = nowTime - initialTime;
-
-        } while (diff.Milliseconds < timeout);
-
-        if (fail != null)
-            fail();
-        yield return null;
-    }
-
-    public void Close()
-    {
-        stream.Close();
-    }
-
-
 }

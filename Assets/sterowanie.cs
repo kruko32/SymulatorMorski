@@ -37,13 +37,14 @@ public class sterowanie : MonoBehaviour
     private Vector3 rotateValue;
     private Quaternion rotation;
 
+    public string[] vec3;
+
+
     ArduinoConnector arduino;
 
     public void  Start()
     {
-        rotation = transform.rotation;
         arduino = ArduinoConnector.GetComponent<ArduinoConnector>();
-        StartCoroutine(arduino.example());
     }
 
 
@@ -51,27 +52,27 @@ public class sterowanie : MonoBehaviour
     {
         
 
-
-
-        string value = arduino.ReadFromArduino(1); //Read the information
-        if (arduino.ReadFromArduino(1) != " " || arduino.ReadFromArduino(1) != null)
+        string value = arduino.ReadFromArduino(); //Read the information
+        
+        if (value == null)
         {
-            string[] vec3 = value.Split(','); //My arduino script returns a 3 part value (IE: 12,30,18)
+           // then rób nic
+        }
+        else
+        {
+            vec3 = value.Split(','); //My arduino script returns a 4 part value (IE: 0,0,18,100)
 
 
             if (vec3[0] != "" && vec3[1] != "" && vec3[2] != "" && vec3[3] != "") //Check if all values are recieved
             {
                 predkoscNastawa.value = float.Parse(vec3[2]);
                 pletwaNastawa.value = float.Parse(vec3[3]);
+                CamX = 19 + float.Parse(vec3[0]);
+                CamY = 90 + float.Parse(vec3[1]);
+                Kamera.transform.rotation = Quaternion.Euler(CamX, CamY + COG, 0);
             }
-            CamX = 19 + float.Parse(vec3[0]);
-            CamY = 90 + float.Parse(vec3[1]);
-            Kamera.transform.rotation = Quaternion.Euler(CamX, CamY+COG, 0);
+            
         }
-
-
-        
-
 
         predkosc.text = predkoscNastawa.value.ToString() + " %";
         pletwa.text = pletwaNastawa.value.ToString() + " °";
@@ -88,8 +89,7 @@ public class sterowanie : MonoBehaviour
         if (predkoscAktualna != 0)
         {
             ROT += (K * (pletwaAkt) - ROT) * Time.deltaTime;
-            ROTAktHUD.text = ROT.ToString("0.0") + "  °/s";
-            
+            ROTAktHUD.text = ROT.ToString("0.0") + "  °/s";           
             COG += ROT * Time.deltaTime;
             COGAktHUD.text = COG.ToString("0.0") + "  °";
             {
@@ -100,8 +100,7 @@ public class sterowanie : MonoBehaviour
                 wychylenieAktHUD.text = pletwaAkt.ToString("0") + " °";
             }
         }
-
-        arduino.WriteToArduino(predkoscAktHUD.text);
+        arduino.WriteToArduino(predkoscAktHUD.text);      
     }
 }
 
